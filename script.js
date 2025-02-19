@@ -66,10 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         aplicarFuncionalidadeEdicao(novoContainer);
 
+
         const botaoExcluir = novoContainer.querySelector('.excluir-container');
         botaoExcluir.addEventListener('click', function() {
-            novoContainer.remove(); 
-            salvarContainers(); 
+            if (confirm("Você tem certeza que deseja excluir esta descrição?")) {
+                novoContainer.remove(); 
+                salvarContainers(); 
+            }
         });
 
         descricaoContainer.appendChild(novoContainer);
