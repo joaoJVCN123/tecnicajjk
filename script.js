@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const botaoExcluir = novoContainer.querySelector('.excluir-container');
         botaoExcluir.addEventListener('click', function() {
-            if (confirm("Você tem certeza que deseja excluir esta descrição?")) {
+            if (confirm("Você tem certeza que deseja excluir esta técnica?")) {
                 novoContainer.remove(); 
                 salvarContainers(); 
             }
