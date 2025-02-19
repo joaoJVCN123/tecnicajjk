@@ -1,0 +1,107 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    background-color: #e1bee7; /* Roxo claro */
+
+}
+
+.head {
+    text-align: center;
+    background-color: #6a1b9a; /* Roxo escuro */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.head a {
+    color: white;
+    text-decoration: none;
+    margin: 3vw;
+    font-size: 125%;
+}
+
+h1{
+    text-align: center;
+    padding-top: 3vh;
+    color: #4a148c;
+}
+
+.descricao-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr)); /* Ajuste o valor de minmax conforme necessário */
+    gap: 20px; /* Espaçamento entre as descrições */
+    padding: 20px;
+}
+
+.descricao {
+    border: 1px solid #ab47bc; /* Roxo médio */
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #dc9ce7; /* Roxo claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.editavel-titulo, .descricao-texto, .editavel-opcao {
+    white-space: pre-wrap; /* Preserva quebras de linha e espaços */
+    word-wrap: break-word; /* Quebra palavras longas */
+    overflow-wrap: break-word; /* Evita que o texto ultrapasse o container */
+    cursor: pointer; /* Mostra que o texto é clicável */
+    color: #4a148c; /* Roxo escuro para o texto */
+}
+
+.editavel-temporario {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ab47bc; /* Roxo médio */
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    resize: vertical; /* Permite redimensionar verticalmente */
+    background-color: #f3e5f5; /* Roxo claro de fundo */
+    color: #4a148c; /* Roxo escuro para o texto */
+}
+
+/* Estilo para o placeholder */
+.editavel-temporario::placeholder {
+    color: #7e57c2; /* Roxo médio para o placeholder */
+    font-style: italic; /* Estilo do placeholder */
+}
+
+/* Estilo para o texto do placeholder */
+.editavel-titulo[data-placeholder], .descricao-texto[data-placeholder], .editavel-opcao[data-placeholder] {
+    color: #7e57c2; /* Roxo médio */
+    font-style: italic;
+}
+
+#adicionar-container {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #9400df; /* Roxo mais escuro ao passar o mouse */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#adicionar-container:hover {
+    background-color: #651fff; /* Roxo mais escuro ao passar o mouse */
+}
+
+.excluir-container {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    background-color: #d500f9; /* Roxo vibrante */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.excluir-container:hover {
+    background-color: #aa00ff; /* Roxo mais escuro ao passar o mouse */
+}
