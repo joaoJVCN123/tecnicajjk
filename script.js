@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const linksAbas = document.querySelectorAll('.head a');
     const tituloAba = document.getElementById('titulo-aba'); // Elemento do título da aba
 
-    let abaAtual = 'tecnica'; // Aba padrão
+    let abaAtual = 'nivel0'; // Aba padrão (Nível 0)
 
     // Função para salvar os containers no localStorage da aba atual
     const salvarContainers = () => {
