@@ -2,11 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const descricaoContainer = document.querySelector('#descricao-container');
     const botaoAdicionar = document.getElementById('adicionar-container');
     const linksAbas = document.querySelectorAll('.head a');
-    const tituloAba = document.getElementById('titulo-aba'); // Elemento do título da aba
+    const tituloAba = document.getElementById('titulo-aba');
 
-    let abaAtual = 'nivel0'; // Aba padrão (Nível 0)
+    let abaAtual = 'nivel0'; 
 
-    // Função para salvar os containers no localStorage da aba atual
     const salvarContainers = () => {
         const containers = [];
         descricaoContainer.querySelectorAll('.descricao').forEach(container => {
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const duracao = container.querySelector('[data-campo="duracao"]').innerText;
             const descricao = container.querySelector('.descricao-texto').innerText;
 
-            // Verifica se o container foi editado (não é apenas o placeholder)
             const foiEditado = (
                 titulo !== "Digite aqui" ||
                 conjuracao !== "Digite aqui" ||
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 descricao !== "Digite aqui"
             );
 
-            // Salva apenas se foi editado
             if (foiEditado) {
                 containers.push({
                     id,
@@ -44,21 +41,18 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem(abaAtual, JSON.stringify(containers));
     };
 
-    // Função para carregar os containers do localStorage da aba atual
     const carregarContainers = () => {
         const containersSalvos = JSON.parse(localStorage.getItem(abaAtual)) || [];
-        descricaoContainer.innerHTML = ''; // Limpa o container antes de carregar
+        descricaoContainer.innerHTML = ''; 
         containersSalvos.forEach(container => {
             criarNovoContainer(container);
         });
     };
 
-    // Função para criar um novo container de descrição
     const criarNovoContainer = (dados = {}) => {
         const novoContainer = document.createElement('div');
         novoContainer.classList.add('descricao');
-        novoContainer.setAttribute('data-id', dados.id || Date.now()); // ID único baseado no timestamp ou nos dados salvos
-
+        novoContainer.setAttribute('data-id', dados.id || Date.now());
         novoContainer.innerHTML = `
         <h2 class="editavel-titulo" data-campo="titulo">${dados.titulo || "Digite aqui"}</h2>
         <p><strong>Conjuração:</strong> <span class="editavel-opcao" data-campo="conjuracao">${dados.conjuracao || "Digite aqui"}</span></p>
@@ -70,47 +64,40 @@ document.addEventListener('DOMContentLoaded', function() {
         <button class="excluir-container">Excluir</button>
         `;
 
-        // Aplicar a funcionalidade de edição ao novo container
         aplicarFuncionalidadeEdicao(novoContainer);
 
-        // Adicionar funcionalidade de exclusão ao botão
         const botaoExcluir = novoContainer.querySelector('.excluir-container');
         botaoExcluir.addEventListener('click', function() {
-            novoContainer.remove(); // Remove o container do DOM
-            salvarContainers(); // Atualiza o localStorage
+            novoContainer.remove(); 
+            salvarContainers(); 
         });
 
-        // Adicionar o novo container ao DOM
         descricaoContainer.appendChild(novoContainer);
 
-        // Salvar os containers no localStorage
         salvarContainers();
     };
 
-    // Função para aplicar a funcionalidade de edição a um container
     const aplicarFuncionalidadeEdicao = (container) => {
         const id = container.getAttribute('data-id');
 
-        // Função para tornar um elemento editável
+       
         const tornarEditavel = (elemento, campo) => {
             elemento.addEventListener('click', function() {
-                // Cria um input temporário
+
                 const input = document.createElement('input');
                 input.type = 'text';
-                input.value = elemento.innerText.trim(); // Pega o texto do elemento
-                input.placeholder = "Digite aqui"; // Placeholder
+                input.value = elemento.innerText.trim(); 
+                input.placeholder = "Digite aqui";
                 input.classList.add('editavel-temporario');
 
-                // Substitui o texto pelo input
-                elemento.innerText = ''; // Limpa o conteúdo do elemento
+                elemento.innerText = ''; 
                 elemento.appendChild(input);
                 input.focus();
 
-                // Salvar ao pressionar "Enter" ou clicar fora
                 const salvarEdicao = () => {
                     const novoTexto = input.value.trim();
-                    elemento.innerText = novoTexto || "Digite aqui"; // Restaura o texto ou exibe o placeholder
-                    salvarContainers(); // Atualiza o localStorage
+                    elemento.innerText = novoTexto || "Digite aqui";
+                    salvarContainers();
                 };
 
                 input.addEventListener('keydown', function(event) {
@@ -125,45 +112,38 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         };
 
-        // Aplicar a funcionalidade de edição ao título
         const tituloElemento = container.querySelector('.editavel-titulo');
         tornarEditavel(tituloElemento, 'titulo');
 
-        // Aplicar a funcionalidade de edição ao texto da descrição
         const textoElemento = container.querySelector('.descricao-texto');
         textoElemento.addEventListener('click', function() {
             const textarea = document.createElement('textarea');
-            textarea.value = textoElemento.innerText === "Digite aqui" ? "" : textoElemento.innerText; // Remove o placeholder ao editar
-            textarea.placeholder = "Digite aqui"; // Placeholder
+            textarea.value = textoElemento.innerText === "Digite aqui" ? "" : textoElemento.innerText;
+            textarea.placeholder = "Digite aqui";
             textarea.classList.add('editavel-temporario');
 
-            // Substitui o texto pelo textarea
             textoElemento.replaceWith(textarea);
             textarea.focus();
 
-            // Função para salvar a edição
             const salvarEdicao = () => {
                 const novoTexto = textarea.value.trim();
-                textoElemento.innerText = novoTexto || "Digite aqui"; // Restaura o texto ou exibe o placeholder
-                textarea.replaceWith(textoElemento); // Substitui o textarea pelo texto atualizado
-                salvarContainers(); // Atualiza o localStorage
+                textoElemento.innerText = novoTexto || "Digite aqui"; 
+                textarea.replaceWith(textoElemento); 
+                salvarContainers(); 
             };
 
-            // Salvar ao pressionar "Enter"
             textarea.addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
-                    event.preventDefault(); // Evita quebrar a linha no textarea
+                    event.preventDefault(); 
                     salvarEdicao();
                 }
             });
 
-            // Salvar ao clicar fora
             textarea.addEventListener('blur', function() {
                 salvarEdicao();
             });
         });
 
-        // Aplicar a funcionalidade de edição às outras opções
         const opcoesEditaveis = container.querySelectorAll('.editavel-opcao');
         opcoesEditaveis.forEach(opcao => {
             const campo = opcao.getAttribute('data-campo');
@@ -171,27 +151,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Adicionar funcionalidade ao botão de adicionar container
     botaoAdicionar.addEventListener('click', () => criarNovoContainer());
 
-    // Função para trocar de aba
     const trocarAba = (novaAba) => {
-        abaAtual = novaAba; // Atualiza a aba atual
-        carregarContainers(); // Carrega os containers da nova aba
+        abaAtual = novaAba;
+        carregarContainers(); 
 
-        // Atualiza o título da aba
         const nomeAba = document.querySelector(`[data-aba="${novaAba}"]`).textContent;
-        tituloAba.textContent = nomeAba; // Define o texto do título
+        tituloAba.textContent = nomeAba; 
     };
 
-    // Adicionar funcionalidade aos links das abas
     linksAbas.forEach(link => {
         link.addEventListener('click', function(event) {
-            event.preventDefault(); // Evita o comportamento padrão do link
-            trocarAba(this.getAttribute('data-aba')); // Troca para a aba clicada
+            event.preventDefault(); 
+            trocarAba(this.getAttribute('data-aba')); 
         });
     });
 
-    // Carregar os containers da aba padrão ao iniciar a página
     carregarContainers();
 });
