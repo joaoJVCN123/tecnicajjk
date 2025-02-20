@@ -7,18 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const botaoAdicionarPersonagem = document.getElementById('adicionar-personagem');
     const toggleButton = document.getElementById('toggle-esquerda');
     const selecaoPersonagem = document.getElementById('selecao-personagem');
+    const inputNumero = document.getElementById('numero-editavel');
 
-    toggleButton.addEventListener('click', function() {
-        selecaoPersonagem.classList.toggle('recolhido');
-        if (selecaoPersonagem.classList.contains('recolhido')) {
-            toggleButton.textContent = '►'; // Seta para a direita (recolhido)
-        } else {
-            toggleButton.textContent = '◄'; // Seta para a esquerda (expandido)
-        }
-    });
-
-    let personagemAtual = null; // Personagem atual (será definido ao carregar a página)
-    let abaAtual = 'nivel0'; // Aba padrão
+    let personagemAtual = null; 
+    let abaAtual = 'nivel0'; 
 
     // Função para salvar os containers no localStorage do personagem atual
     const salvarContainers = () => {
@@ -297,6 +289,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Atualiza a lista de personagens no localStorage
             atualizarLocalStoragePersonagens();
+        }
+    });
+
+    const numeroSalvo = localStorage.getItem('dtValor');
+    if (numeroSalvo !== null) {
+        inputNumero.value = numeroSalvo;
+    }
+
+    inputNumero.addEventListener('input', function() {
+        localStorage.setItem('dtValor', inputNumero.value);
+    });
+
+    toggleButton.addEventListener('click', function() {
+        selecaoPersonagem.classList.toggle('recolhido');
+        if (selecaoPersonagem.classList.contains('recolhido')) {
+            toggleButton.textContent = '☰'; 
+        } else {
+            toggleButton.textContent = '✖'; 
         }
     });
 
