@@ -3,29 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favcon.png" type="image/x-icon">
-    <script src="script.js" defer></script>
+    <link rel="shortcut icon" href="favcon.png" type="image/x-icon">
+    <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Técnica</title>
 </head>
-<header>
-    <header>
-        <div class="head">
-            <a href="#" data-aba="nivel0">Nivel 0</a>
-            <a href="#" data-aba="nivel1">Nivel 1</a>
-            <a href="#" data-aba="nivel2">Nivel 2</a>
-            <a href="#" data-aba="nivel3">Nivel 3</a>
-            <a href="#" data-aba="nivel4">Nivel 4</a>
-            <a href="#" data-aba="nivel5">Nivel 5</a>
-            <a href="#" data-aba="passivas">Passivas</a>
-        </div>
-    </header>
-    <body>
-        <h1 id="titulo-aba">Nivel 0</h1>
-        <button id="adicionar-container">Adicionar Nova Técnica</button>
-        <div class="descricao-container" id="descricao-container">
-        </div>
-    </body>
-</body>
-</html>
+<body>
 
+    <div class="container">
+        <!-- Seção esquerda (inicia recolhida) -->
+        <div class="selecao-personagem recolhido" id="selecao-personagem">
+            <button id="toggle-esquerda">►</button>
+            <h2>Personagens</h2>
+            <ul id="lista-personagens">
+                <li data-personagem="personagem1">Personagem 1</li>
+            </ul>
+            <button id="adicionar-personagem">Adicionar Personagem</button>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="conteudo-principal">
+            <header>
+                <div class="head">
+                    <a href="#" data-aba="nivel0">Nivel 0</a>
+                    <a href="#" data-aba="nivel1">Nivel 1</a>
+                    <a href="#" data-aba="nivel2">Nivel 2</a>
+                    <a href="#" data-aba="nivel3">Nivel 3</a>
+                    <a href="#" data-aba="nivel4">Nivel 4</a>
+                    <a href="#" data-aba="nivel5">Nivel 5</a>
+                    <a href="#" data-aba="passivas">Passivas</a>
+                </div>
+            </header>
+            <h1 id="titulo-aba">Nivel 0</h1>
+            <button id="adicionar-container">Adicionar Nova Descrição</button>
+            <div class="descricao-container" id="descricao-container">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para salvar e carregar o número do localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputNumero = document.getElementById('numero-editavel');
+
+            // Carrega o valor salvo no localStorage (se existir)
+            const numeroSalvo = localStorage.getItem('numeroEditavel');
+            if (numeroSalvo) {
+                inputNumero.value = numeroSalvo;
+            }
+
+            // Salva o valor no localStorage sempre que o input for alterado
+            inputNumero.addEventListener('input', function() {
+                localStorage.setItem('numeroEditavel', inputNumero.value);
+            });
+        });
+    </script>
+</body>
+<footer>
+    <div class="dt-container">
+        <span class="dt-texto">DT </span>
+        <input type="number" id="numero-editavel" class="numero-editavel" min="0" max="999">
+    </div>
+</footer>
+</html>
