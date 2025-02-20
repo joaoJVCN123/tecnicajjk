@@ -153,7 +153,7 @@ body {
 }
 
 .editavel-temporario {
-    width: auto;
+    width: 20vw;
     padding: 5px;
     border: 1px solid #ab47bc;
     border-radius: 5px;
